@@ -37,7 +37,8 @@ PRE_REQ_APPS = [
     'django.contrib.messages',
     'django.contrib.staticfiles',
     'rest_framework',
-    'rest_framework.authtoken'
+    'rest_framework.authtoken',
+    'django_pydenticon'
     ]
 
 MY_APPS = [

@@ -19,6 +19,7 @@ from django.conf.urls import url, include
 from rest_framework import routers
 from rest_framework.authtoken import views as vAuth
 from arquivo import views, viewsets
+import django_pydenticon.urls
 
 router = routers.DefaultRouter()
 router.register(r'users', viewsets.UserViewSet)
@@ -34,4 +35,5 @@ urlpatterns = [
     url(r'^account/profile/$', views.account_profile),
     url(r'^api-auth/', include('rest_framework.urls', namespace='rest_framework')),
     url(r'^api-token-auth/', vAuth.obtain_auth_token),
+    url(r'^identicon/', include(django_pydenticon.urls.get_patterns())),
 ]
