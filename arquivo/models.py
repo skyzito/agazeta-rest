@@ -1,3 +1,4 @@
+import uuid
 from django.db import models
 from django.contrib.auth.models import User
 from django.db.models.signals import post_save
@@ -13,7 +14,7 @@ class Profile(models.Model):
     )
     user = models.OneToOneField(User, on_delete=models.CASCADE)
     account_type = models.CharField(max_length=30, choices=ACCOUNT_TYPE, default=ACCOUNT_TYPE[0])
-    avatar = models.IntegerField(blank=True, null=True)
+    avatar = models.UUIDField(default=uuid.uuid4, editable=False)
     partner_sub = models.BooleanField(default=True)
     newsletter_sub = models.BooleanField(default=True)
 
