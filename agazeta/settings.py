@@ -38,9 +38,9 @@ PRE_REQ_APPS = [
     'django.contrib.staticfiles',
     'rest_framework',
     'rest_framework.authtoken',
+    'rest_framework_swagger',
     'django_pydenticon',
     'opbeat.contrib.django',
-
     ]
 
 MY_APPS = [
@@ -100,6 +100,34 @@ REST_FRAMEWORK = {
         'user': '10000/day'
     },
     'DEFAULT_VERSIONING_CLASS': 'rest_framework.versioning.NamespaceVersioning'
+}
+
+SWAGGER_SETTINGS = {
+    'exclude_url_names': [],
+    'exclude_namespaces': [],
+    'api_version': '0.1.0-alpha',
+    'enabled_methods': [
+        'get',
+        'post',
+        'put',
+        'patch',
+        'delete'
+    ],
+    'is_authenticated': True,
+    'is_superuser': False,
+    'unauthenticated_user': 'django.contrib.auth.models.AnonymousUser',
+    'permission_denied_handler': 'arquivo.views.permission_denied_handler',
+    'resource_access_handler': None,
+    'base_path':'/docs',
+    'info': {
+        'contact': 'apiteam@wordnik.com',
+        'description': 'Agazeta API para análises',
+        'license': 'Apache 2.0',
+        'licenseUrl': 'http://www.apache.org/licenses/LICENSE-2.0.html',
+        'termsOfServiceUrl': '/terms/',
+        'title': 'Agazeta API server',
+    },
+    'doc_expansion': 'none',
 }
 
 WSGI_APPLICATION = 'agazeta.wsgi.application'

@@ -17,7 +17,9 @@ Including another URLconf
 from django.contrib import admin
 from django.conf.urls import url, include
 from rest_framework import routers
+from rest_framework.schemas import get_schema_view
 from rest_framework.authtoken import views as vAuth
+from rest_framework_swagger.renderers import SwaggerUIRenderer, OpenAPIRenderer
 from arquivo import views, viewsets
 import django_pydenticon.urls
 
@@ -27,8 +29,10 @@ router.register(r'tob-tokens', viewsets.TobTokenViewSet)
 router.register(r'matchs', viewsets.MatchViewSet)
 router.register(r'card-played', viewsets.CardPlayedViewSet)
 
+schema_view = get_schema_view(title='AGAZETA API', renderer_classes=[OpenAPIRenderer, SwaggerUIRenderer])
 
 urlpatterns = [
+    url(r'^', schema_view, name="docs"),
     url(r'^admin/', admin.site.urls),
     url(r'^api/v1/', include(router.urls, namespace='v1')),
     url(r'^api/v2/', include(router.urls, namespace='v2')),

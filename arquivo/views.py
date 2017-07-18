@@ -4,8 +4,14 @@ from rest_framework import viewsets, permissions
 from rest_framework.throttling import UserRateThrottle
 from .permissions import IsOwnerOrReadOnly, IsOwner
 
+
 def account_profile(request):
-	pass
+    pass
+
 
 def analytics(request):
     pass
+
+
+def permission_denied_handler(request):
+    return HttpResponse('You shall not pass!')

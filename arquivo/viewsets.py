@@ -7,7 +7,25 @@ from .models import TobToken, Match, CardPlayed
 
 class UserViewSet(viewsets.ModelViewSet):
     """
-    API endpoint that allows users to be viewed or edited.
+    User set
+    ---
+    retrieve:
+        Return a user instance.
+
+    list:
+        Return all users, ordered by most recently joined.
+
+    create:
+        Create a new user.
+
+    delete:
+        Remove an existing user.
+
+    partial_update:
+        Update one or more fields on an existing user.
+
+    update:
+        Update a user.
     """
     throttle_classes = (UserRateThrottle,)
     permission_classes = (permissions.IsAdminUser, IsOwner,)
@@ -16,12 +34,29 @@ class UserViewSet(viewsets.ModelViewSet):
 
 class TobTokenViewSet(viewsets.ModelViewSet):
     """
-    API endpoint that allows users to be viewed or edited.
+    Track-o-Bot token resource
+    ---
+    retrieve:
+        Return a Track-o-Bot token instance.
+
+    list:
+        Return all Track-o-Bot tokens that you have access.
+
+    create:
+        Create a new Track-o-Bot token entry in the database.
+
+    delete:
+        Remove an existing Track-o-Bot token.
+
+    partial_update:
+        Update one or more fields on an existing Track-o-Bot token.
+
+    update:
+        Update a Track-o-Bot token.
     """
     throttle_classes = (UserRateThrottle,)
     permission_classes = (permissions.IsAdminUser, IsOwner,)
     queryset = TobToken.objects.all()
-    serializer_class = TobTokenSerializer
 
     def perform_create(self, serializer):
         serializer.save(user=self.request.user)
@@ -34,17 +69,52 @@ class TobTokenViewSet(viewsets.ModelViewSet):
 
 class MatchViewSet(viewsets.ModelViewSet):
     """
-    API endpoint that allows users to be viewed or edited.
+    Match resource
+    ---
+    retrieve:
+        Return a match instance.
+
+    list:
+        Return all match instances.
+
+    create:
+        Create a new Track-o-Bot token entry in the database.
+
+    delete:
+        Remove an existing Track-o-Bot token.
+
+    partial_update:
+        Update one or more fields on an existing Track-o-Bot token.
+
+    update:
+        Update a Track-o-Bot token.
     """
     throttle_classes = (UserRateThrottle,)
     permission_classes = (permissions.IsAuthenticatedOrReadOnly, IsOwnerOrReadOnly,)
     queryset = Match.objects.all()
     serializer_class = MatchSerializer
 
-
 class CardPlayedViewSet(viewsets.ModelViewSet):
     """
-    API endpoint that allows users to be viewed or edited.
+    Card Played on matchs
+    ---
+    retrieve:
+        Return a card played in a match.
+
+    list:
+        Return all cards of a given match.
+
+    create:
+        Create a new card to add to a player in a match.
+
+    delete:
+        Remove an existing card from database.
+
+    partial_update:
+        Update one or more fields on an existing played card.
+
+    update:
+        Update a played card.
     """
     throttle_classes = (UserRateThrottle,)
     permission_classes = (permissions.IsAdminUser, IsOwnerOrReadOnly,)
