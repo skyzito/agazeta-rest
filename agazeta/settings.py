@@ -38,7 +38,9 @@ PRE_REQ_APPS = [
     'django.contrib.staticfiles',
     'rest_framework',
     'rest_framework.authtoken',
-    'django_pydenticon'
+    'django_pydenticon',
+    'opbeat.contrib.django',
+
     ]
 
 MY_APPS = [
@@ -47,7 +49,14 @@ MY_APPS = [
 
 INSTALLED_APPS = PRE_REQ_APPS + MY_APPS
 
+OPBEAT = {
+    'ORGANIZATION_ID': 'd4f5b5bdb7e54dc1969b2aab10b94d33',
+    'APP_ID': '15aa10fecc',
+    'SECRET_TOKEN': '335a4b8b1b48081740a4d9649186d51887f10824',
+}
+
 MIDDLEWARE = [
+    'opbeat.contrib.django.middleware.OpbeatAPMMiddleware',
     'django.middleware.security.SecurityMiddleware',
     'django.contrib.sessions.middleware.SessionMiddleware',
     'django.middleware.common.CommonMiddleware',

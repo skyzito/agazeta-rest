@@ -1,10 +1,12 @@
+import uuid
 from django.contrib.auth.models import User
-from .models import Profile, TobToken, Match, CardPlayed
+from django.core.urlresolvers import reverse
 from rest_framework import serializers
+from .models import Profile, TobToken, Match, CardPlayed
 
 class UserSerializer(serializers.HyperlinkedModelSerializer):
     # A field from the user's profile:
-    avatar = serializers.URLField(source='profile.avatar', allow_blank=True)
+    avatar = serializers.SerializerMethodField(read_only=True)
     partner_sub = serializers.URLField(source='profile.partner_sub', allow_blank=True)
     newsletter_sub = serializers.URLField(source='profile.newsletter_sub', allow_blank=True)
     account_type = serializers.URLField(source='profile.account_type', allow_blank=True)
@@ -28,6 +30,10 @@ class UserSerializer(serializers.HyperlinkedModelSerializer):
         # This always creates a Profile if the User is missing one;
         # change the logic here if that's not right for your app
         Profile.objects.update_or_create(user=user, defaults=profile_data)
+
+    def get_avatar(self, obj):
+        avatar = reverse('django_pydenticon:image',  kwargs={"data": uuid.uuid3(uuid.NAMESPACE_X500, obj.email+obj.username)});
+        return avatar
 
 class TobTokenSerializer(serializers.HyperlinkedModelSerializer):
     user = serializers.ReadOnlyField(source='user.username')
